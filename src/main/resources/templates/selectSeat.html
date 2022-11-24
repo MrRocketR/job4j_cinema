@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card-body">
+<div class="form-group">
+    <form th:action="@{/formSelectSeat}" method="POST" enctype="multipart/form-data">
+        <br>
+        <img th:width="150" th:high="150" th:src="@{|/filmPoster/${film.id}|}">
+        <br>
+        <span th:text="${film.name}"></span>
+        <br>
+        Chosen row <span th:text="${rowId}" />
+        <br>
+        <div class="form-group">
+            <label for="seatId">Select seat</label>
+            <select class="form-control" id="seatId" name="seatId">
+                <option th:each="seatId: ${freePlaces}" th:value="${seatId}" th:text="${seatId}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Next Step</button>
+    </form>
+</div>
+</div>
+</body>
+</html>
