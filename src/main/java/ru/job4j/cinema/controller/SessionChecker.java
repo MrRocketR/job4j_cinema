@@ -15,7 +15,7 @@ public class SessionChecker {
         User user = (User) httpSession.getAttribute("user");
         if (user == null) {
             user = new User();
-            user.setName("Quest");
+            user.setName("Guest");
         }
         model.addAttribute("user", user);
     }

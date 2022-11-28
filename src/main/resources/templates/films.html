@@ -30,11 +30,11 @@
             <a class="nav-item nav-link" th:href="@{/films}">Films</a>
             <a class="nav-item nav-link" th:href="@{/addFilm}">Add Film</a>
             <a class="nav-item nav-link" th:href="@{/regUser}">Registration</a>
-            <a class="nav-item nav-link" th:if="${user.name == 'Quest'}" th:href="@{/loginPage}">
+            <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
                 <span th:text="${user.name}"></span>
                 <span> | Sign In</span>
             </a>
-            <a class="nav-item nav-link" th:if="${user.name != 'Quest'}" th:href="@{/logout}">
+            <a class="nav-item nav-link" th:if="${user.name != 'Guest'}" th:href="@{/logout}">
                 <span th:text="${user.name}"></span>
                 <span> | Sign out</span>
             </a>
