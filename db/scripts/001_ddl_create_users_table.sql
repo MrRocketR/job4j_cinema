@@ -10,7 +10,7 @@ create table if not exists USERS (
 
 comment on table users is 'users';
 comment on column users.id is 'User id';
-comment on column users.username is 'username;
+comment on column users.username is 'username';
 comment on column users.email is 'user email';
 comment on column users.phone is 'user phone';
 comment on column users.password is 'user password';
