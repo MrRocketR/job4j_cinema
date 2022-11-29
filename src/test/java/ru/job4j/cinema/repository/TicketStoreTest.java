@@ -18,7 +18,7 @@ public class TicketStoreTest {
 
     @BeforeAll
     public static void initSource() {
-        try (InputStream input = new FileInputStream("src\\test\\resources\\db.properties")) {
+        try (InputStream input = new FileInputStream("src/test/resources/db.properties"))  {
             Properties cfg  = new Properties();
             cfg.load(input);
             Class.forName(cfg.getProperty("jdbc.driver"));
@@ -38,11 +38,11 @@ public class TicketStoreTest {
         }
     }
 
-    @Ignore
+
     @Test
     public void whenTicketAdded() {
         TicketStore store = new TicketStore(pool);
-        Ticket ticket = new Ticket(0, 1, 5, 2, 1);
+        Ticket ticket = new Ticket(0, 3, 3, 1, 1);
         store.add(ticket);
         Ticket stored = store.findById(ticket.getId());
         Assertions.assertEquals(ticket.getRowId(), stored.getRowId());

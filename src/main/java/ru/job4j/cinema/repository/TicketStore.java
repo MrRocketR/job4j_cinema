@@ -20,7 +20,7 @@ public class TicketStore {
 
     private static final String FIND = "SELECT * FROM TICKETS";
 
-    private static final String FIND_BY_ID = "SELECT * FROM ticket where id= ?";
+    private static final String FIND_BY_ID = "SELECT * FROM tickets where id= ?";
     private static final String FIND_BY_FILM = "SELECT * FROM tickets WHERE film_id = ?";
 
     private static final Logger LOG = LogManager.getLogger(Ticket.class.getName());

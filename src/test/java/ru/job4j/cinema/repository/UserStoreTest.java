@@ -1,6 +1,7 @@
 package ru.job4j.cinema.repository;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.junit.After;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +10,7 @@ import ru.job4j.cinema.model.User;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.Properties;
 
 
@@ -19,7 +21,7 @@ public class UserStoreTest {
 
     @BeforeAll
     public static void initSource() {
-        try (InputStream input = new FileInputStream("src\\test\\resources\\db.properties")) {
+        try (InputStream input = new FileInputStream("src/test/resources/db.properties"))  {
             Properties cfg  = new Properties();
             cfg.load(input);
             Class.forName(cfg.getProperty("jdbc.driver"));
@@ -38,14 +40,20 @@ public class UserStoreTest {
             throw new RuntimeException(e);
         }
     }
-    @Ignore
+
     @Test
     public void whenUserAdded() {
-        User user = new User(0, "Tester", "tester@gmail.com", "8800", "qwerty");
+        User user = new User(0, "Tester32", "tester32@gmail.com", "8800", "qwerty");
         UserStore store = new UserStore(pool);
         store.add(user);
         User userInDb = store.findUserByEmailAndPassword(user.getEmail(), user.getPassword()).get();
         Assertions.assertEquals(userInDb.getEmail(), user.getEmail());
+    }
+
+
+    @After
+    public void wheDone() throws SQLException {
+        pool.close();
     }
 }
 
