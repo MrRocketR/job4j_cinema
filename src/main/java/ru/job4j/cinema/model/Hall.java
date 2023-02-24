@@ -2,11 +2,11 @@ package ru.job4j.cinema.model;
 
 import lombok.Data;
 
-import java.util.Objects;
 @Data
-public class User {
+public class Hall {
     private int id;
     private String name;
-    private String email;
-    private String password;
+    private int rows;
+    private int places;
+    private String description;
 }
