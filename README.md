@@ -40,19 +40,19 @@ To run the application you need:
 ```
 
 ### Login and user registration pages:
-![](img/login.png)
-![](img/reg.png)
+![](img/forReadmi/login.png)
+![](img/forReadmi/reg.png)
 
 ### Main page with a list of movies, new additions and editing of existing ones:
-![](img/main.png)
-![](img/add.png)
-![](img/update.png)
+![](img/forReadmi/main.png)
+![](img/forReadmi/add.png)
+![](img/forReadmi/update.png)
 
 ### Place, row, and purchase confirmation pages:
-![](img/seats.png)
-![](img/row.png)
-![](img/fin.png)
-![](img/end.png)
+![](img/forReadmi/seats.png)
+![](img/forReadmi/row.png)
+![](img/forReadmi/fin.png)
+![](img/forReadmi/end.png)
 
 Movie posters were taken from reddit
 
