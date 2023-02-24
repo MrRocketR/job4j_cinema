@@ -1,14 +1,18 @@
 package ru.job4j.cinema.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Session {
     private int id;
-    private Film film;
-    private Hall hall;
+    private int filmId;
+    private int hallId;
     private Timestamp start;
     private Timestamp end;
     private int price;
