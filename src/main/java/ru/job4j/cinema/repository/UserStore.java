@@ -1,5 +1,6 @@
 package ru.job4j.cinema.repository;
 
+import lombok.Data;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -10,9 +11,10 @@ import java.sql.*;
 import java.util.Optional;
 
 @Repository
+@Data
 public class UserStore {
 
-    private static final String ADD = "INSERT INTO users(username, email, phone, password) VALUES(?, ?, ?, ?)";
+    private static final String ADD = "INSERT INTO users(full_name, email, password) VALUES(?, ?, ?)";
     private static final String FIND = "SELECT * FROM users WHERE email = ? AND password = ?";
     private static final Logger LOG = LogManager.getLogger(UserStore.class.getName());
     private final BasicDataSource pool;
@@ -27,8 +29,7 @@ public class UserStore {
         ) {
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPhone());
-            ps.setString(4, user.getPassword());
+            ps.setString(3, user.getPassword());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -50,7 +51,7 @@ public class UserStore {
             ps.setString(2, password);
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
-                    User user = getUser(resultSet);
+                    User user = setNewObject(resultSet);
                     return Optional.of(user);
                 }
             }
@@ -60,12 +61,11 @@ public class UserStore {
         return Optional.empty();
     }
 
-    public User getUser(ResultSet resultSet) throws SQLException {
+    public User setNewObject(ResultSet resultSet) throws SQLException {
         return new User(
                 resultSet.getInt("id"),
                 resultSet.getString("username"),
                 resultSet.getString("email"),
-                resultSet.getString("phone"),
                 resultSet.getString("password")
         );
     }

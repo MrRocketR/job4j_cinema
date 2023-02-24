@@ -1,10 +1,10 @@
 package ru.job4j.cinema.repository;
 
+import lombok.Data;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
-import ru.job4j.cinema.model.Film;
 import ru.job4j.cinema.model.Ticket;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,14 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Data
 @Repository
 public class TicketStore {
-    private static final String ADD = "INSERT INTO TICKETS (row_id, seat, user_id, film_id) VALUES (?,?,?,?)";
+    private static final String ADD = "INSERT INTO TICKETS (row_id, session_id, row_number, place_number, user_id) VALUES (?,?,?,?,?)";
 
-    private static final String FIND = "SELECT * FROM TICKETS";
+    private static final String FIND_ALL = "SELECT * FROM tickets";
 
     private static final String FIND_BY_ID = "SELECT * FROM tickets where id= ?";
-    private static final String FIND_BY_FILM = "SELECT * FROM tickets WHERE film_id = ?";
+
 
     private static final Logger LOG = LogManager.getLogger(Ticket.class.getName());
     private final BasicDataSource pool;
@@ -34,10 +35,11 @@ public class TicketStore {
     public Optional<Ticket> add(Ticket ticket) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(ADD, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1, ticket.getRowId());
-            ps.setInt(2, ticket.getSeatId());
-            ps.setInt(3, ticket.getUserId());
-            ps.setInt(4, ticket.getFilmId());
+            ps.setInt(1, ticket.getRow());
+            ps.setInt(2, ticket.getSessionId());
+            ps.setInt(3, ticket.getRow());
+            ps.setInt(4, ticket.getPlace());
+            ps.setInt(5, ticket.getUserId());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -54,28 +56,11 @@ public class TicketStore {
     public List<Ticket> findAll() {
         List<Ticket> tickets = new ArrayList<>();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(FIND)
+             PreparedStatement ps = cn.prepareStatement(FIND_ALL)
         ) {
             ResultSet it = ps.executeQuery();
             while (it.next()) {
-                Ticket ticket = getTicket(it);
-                tickets.add(ticket);
-            }
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-        }
-        return tickets;
-    }
-
-    public List<Ticket> findByFilm(int id) {
-        List<Ticket> tickets = new ArrayList<>();
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(FIND_BY_FILM);
-        ) {
-            ps.setInt(1, id);
-            ResultSet it = ps.executeQuery();
-            while (it.next()) {
-                Ticket ticket = getTicket(it);
+                Ticket ticket = setNewObject(it);
                 tickets.add(ticket);
             }
         } catch (Exception e) {
@@ -94,7 +79,7 @@ public class TicketStore {
             ps.setInt(1, id);
             ResultSet it = ps.executeQuery();
            if (it.next()) {
-                ticket = getTicket(it);
+                ticket = setNewObject(it);
             }
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
@@ -102,13 +87,13 @@ public class TicketStore {
         return ticket;
     }
 
-    private Ticket getTicket(ResultSet it) throws SQLException {
+    private Ticket setNewObject(ResultSet it) throws SQLException {
         return new Ticket(
                 it.getInt("id"),
-                it.getInt("row_id"),
-                it.getInt("seat"),
-                it.getInt("user_id"),
-                it.getInt("film_id")
+                it.getInt("session_id"),
+                it.getInt("row_number"),
+                it.getInt("place_number"),
+                it.getInt("user_id")
         );
     }
 
