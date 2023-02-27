@@ -14,7 +14,8 @@ import java.util.Set;
 public class AuthFilter implements Filter {
 
     private final Set<String> filter = new HashSet<>(Arrays.asList("loginPage",
-            "login", "regUser", "registration"));
+            "login", "regUser", "registration",
+            "index", "/logoFile/"));
 
     @Override
     public void doFilter(
