@@ -29,7 +29,7 @@ public class GenreStore implements RepoAllNameId<Genre> {
     private final BasicDataSource pool;
 
     @Override
-    public List<Genre> getAll() {
+    public List<Genre> findAll() {
         List<Genre> list = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_ALL)
@@ -46,7 +46,7 @@ public class GenreStore implements RepoAllNameId<Genre> {
     }
 
     @Override
-    public Genre getById(int id) {
+    public Genre findById(int id) {
         Genre genre = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_BY_ID)
@@ -64,7 +64,7 @@ public class GenreStore implements RepoAllNameId<Genre> {
     }
 
     @Override
-    public Genre getByName(String name) {
+    public Genre findByName(String name) {
         Genre genre = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_BY_NAME)

@@ -16,6 +16,9 @@ public class UserStore {
 
     private static final String ADD = "INSERT INTO users(full_name, email, password) VALUES(?, ?, ?)";
     private static final String FIND = "SELECT * FROM users WHERE email = ? AND password = ?";
+
+    private static final String FIND_BY_ID = "SELECT * FROM users WHERE id = ?";
+
     private static final Logger LOG = LogManager.getLogger(UserStore.class.getName());
     private final BasicDataSource pool;
 
@@ -61,10 +64,28 @@ public class UserStore {
         return Optional.empty();
     }
 
+
+    public Optional<User> findById(int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(FIND_BY_ID)
+        ) {
+            ps.setInt(1, id);
+            try (ResultSet resultSet = ps.executeQuery()) {
+                if (resultSet.next()) {
+                    User user = setNewObject(resultSet);
+                    return Optional.of(user);
+                }
+            }
+        } catch (Exception e) {
+            LOG.error("Exception", e);
+        }
+        return Optional.empty();
+    }
+
     public User setNewObject(ResultSet resultSet) throws SQLException {
         return new User(
                 resultSet.getInt("id"),
-                resultSet.getString("username"),
+                resultSet.getString("full_name"),
                 resultSet.getString("email"),
                 resultSet.getString("password")
         );

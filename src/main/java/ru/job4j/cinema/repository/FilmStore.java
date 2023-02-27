@@ -18,7 +18,7 @@ import java.util.List;
 
 @Repository
 @Data
-public class FilmStore implements RepoAllNameId<Film>{
+public class FilmStore implements RepoAllNameId<Film> {
     private static final Logger LOG = LogManager.getLogger(FilmStore.class.getName());
 
     private static final String FIND_BY_ID = "Select * from films where id = ?";
@@ -28,7 +28,7 @@ public class FilmStore implements RepoAllNameId<Film>{
     private final BasicDataSource pool;
 
     @Override
-    public List<Film> getAll() {
+    public List<Film> findAll() {
         List<Film> list = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_ALL)
@@ -45,7 +45,7 @@ public class FilmStore implements RepoAllNameId<Film>{
     }
 
     @Override
-    public Film getById(int id) {
+    public Film findById(int id) {
         Film film = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_BY_ID)
@@ -63,7 +63,7 @@ public class FilmStore implements RepoAllNameId<Film>{
     }
 
     @Override
-    public Film getByName(String name) {
+    public Film findByName(String name) {
         Film film = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_BY_NAME)

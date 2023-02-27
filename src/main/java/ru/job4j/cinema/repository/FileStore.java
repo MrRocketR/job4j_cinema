@@ -10,6 +10,7 @@ import ru.job4j.cinema.model.Genre;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,13 +21,13 @@ import java.util.List;
 
 @Data
 @Repository
-public class FileStore implements RepoAllNameId<File>{
+public class FileStore implements RepoAllNameId<File> {
 
     private static final Logger LOG = LogManager.getLogger(FileStore.class.getName());
 
     private static final String FIND_BY_ID = "Select * from files where id = ?";
     private static final String FIND_BY_NAME = "Select * from files where name = ?";
-    private static final String FIND_ALL = "Select * from files";
+    private static final String FIND_ALL = "SELECT * FROM files";
 
     private final BasicDataSource pool;
 
@@ -35,7 +36,7 @@ public class FileStore implements RepoAllNameId<File>{
         File file = new File();
         file.setId(rs.getInt("id"));
         file.setName(rs.getString("name"));
-        file.setName(rs.getString("path"));
+        file.setPath(rs.getString("path"));
         file.setImg(getBytes(file.getPath()));
         return file;
     }
@@ -45,7 +46,7 @@ public class FileStore implements RepoAllNameId<File>{
     }
 
     @Override
-    public List<File> getAll() {
+    public List<File> findAll() {
         List<File> list = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_ALL)
@@ -62,7 +63,7 @@ public class FileStore implements RepoAllNameId<File>{
     }
 
     @Override
-    public File getById(int id) {
+    public File findById(int id) {
         File file = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_BY_ID)
@@ -80,7 +81,7 @@ public class FileStore implements RepoAllNameId<File>{
     }
 
     @Override
-    public File getByName(String name) {
+    public File findByName(String name) {
         File file = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_BY_NAME)
@@ -96,4 +97,5 @@ public class FileStore implements RepoAllNameId<File>{
         }
         return file;
     }
+
 }

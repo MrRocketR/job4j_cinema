@@ -1,5 +1,6 @@
 package ru.job4j.cinema.service;
 
+import lombok.Data;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.repository.TicketStore;
@@ -8,33 +9,24 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+
+@Data
 @Service
 public class TicketService {
 
-    private final TicketStore store;
+    private final TicketStore ticketStore;
 
-    public TicketService(TicketStore store) {
-        this.store = store;
-    }
 
-    public Collection<Ticket> getSoldTickets() {
-        Collection<Ticket> tickets = store.findAll();
-        return tickets;
-    }
-
-    public Collection<Ticket> getSoldTicketsByFilm(int id) {
-        Collection<Ticket> tickets = store.findByFilm(id);
-        return tickets;
-
+    public List<Ticket> findAll() {
+        return ticketStore.findAll();
     }
 
     public Ticket findById(int id) {
-        return store.findById(id);
+        return ticketStore.findById(id);
     }
 
     public Optional<Ticket> addTicket(Ticket ticket) {
-        return store.add(ticket);
+        return ticketStore.add(ticket);
     }
-
 
 }

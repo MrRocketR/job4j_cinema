@@ -29,7 +29,7 @@ public class HallStore implements RepoAllNameId<Hall> {
     private final BasicDataSource pool;
 
     @Override
-    public List<Hall> getAll() {
+    public List<Hall> findAll() {
         List<Hall> list = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_ALL)
@@ -46,7 +46,7 @@ public class HallStore implements RepoAllNameId<Hall> {
     }
 
     @Override
-    public Hall getById(int id) {
+    public Hall findById(int id) {
         Hall hall = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_BY_ID)
@@ -64,7 +64,7 @@ public class HallStore implements RepoAllNameId<Hall> {
     }
 
     @Override
-    public Hall getByName(String name) {
+    public Hall findByName(String name) {
         Hall hall = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_BY_NAME)
@@ -88,22 +88,7 @@ public class HallStore implements RepoAllNameId<Hall> {
         hall.setRows(rs.getInt("row_count"));
         hall.setPlaces(rs.getInt("place_count"));
         hall.setDescription(rs.getString("description"));
-        hall.setFreePlaces(setFreePlaces(hall.getRows(), hall.getPlaces()));
         return hall;
     }
 
-    /**
-    пока под вопросов необходимость этого метода
-     */
-    public Map<Integer, List<Integer>> setFreePlaces(int rows, int places) {
-        Map<Integer, List<Integer>> map = new HashMap<>();
-        for (int i = 1; i <= rows; i++) {
-            List<Integer> r_places = new ArrayList<>();
-            for (int j = 1; j <= places; j++) {
-                r_places.add(j);
-            }
-            map.put(i, r_places);
-        }
-       return map;
-    }
 }

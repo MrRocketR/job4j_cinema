@@ -1,34 +1,30 @@
 package ru.job4j.cinema.service;
 
+import lombok.Data;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.Film;
 import ru.job4j.cinema.repository.FilmStore;
-import java.util.Collection;
 
+import java.util.List;
+
+
+@Data
 @Service
 public class FilmService {
-    private final FilmStore store;
+    private final FilmStore filmStore;
 
-    public FilmService(FilmStore store) {
-        this.store = store;
-    }
 
-    public Collection<Film> findAll() {
-        Collection<Film> films = store.findAll();
-        return films;
-    }
-
-    public void add(Film film) {
-        store.add(film);
+    public List<Film> findAll() {
+        return filmStore.findAll();
     }
 
     public Film findById(int id) {
-        return store.findById(id);
+        return filmStore.findById(id);
     }
 
-
-    public void update(Film film) {
-        store.update(film);
+    public Film findByName(String name) {
+        return filmStore.findByName(name);
     }
+
 
 }

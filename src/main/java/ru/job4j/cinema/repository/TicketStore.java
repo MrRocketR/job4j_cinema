@@ -17,7 +17,7 @@ import java.util.Optional;
 @Data
 @Repository
 public class TicketStore {
-    private static final String ADD = "INSERT INTO TICKETS (row_id, session_id, row_number, place_number, user_id) VALUES (?,?,?,?,?)";
+    private static final String ADD = "INSERT INTO TICKETS (session_id, row_number, place_number, user_id) VALUES (?,?,?,?)";
 
     private static final String FIND_ALL = "SELECT * FROM tickets";
 
@@ -35,11 +35,10 @@ public class TicketStore {
     public Optional<Ticket> add(Ticket ticket) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(ADD, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1, ticket.getRow());
-            ps.setInt(2, ticket.getSessionId());
-            ps.setInt(3, ticket.getRow());
-            ps.setInt(4, ticket.getPlace());
-            ps.setInt(5, ticket.getUserId());
+            ps.setInt(1, ticket.getSessionId());
+            ps.setInt(2, ticket.getRow());
+            ps.setInt(3, ticket.getPlace());
+            ps.setInt(4, ticket.getUserId());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {

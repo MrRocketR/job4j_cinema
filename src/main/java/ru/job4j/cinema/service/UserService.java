@@ -1,6 +1,7 @@
 package ru.job4j.cinema.service;
 
 
+import lombok.Data;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.User;
@@ -8,8 +9,9 @@ import ru.job4j.cinema.repository.UserStore;
 
 import java.util.Optional;
 
+
+@Data
 @Service
-@ThreadSafe
 public class UserService {
     private final UserStore store;
 
@@ -23,6 +25,10 @@ public class UserService {
 
     public Optional<User> findUserByEmailAndPassword(String email, String password) {
         return store.findUserByEmailAndPassword(email, password);
+    }
+
+    public Optional<User> findById(int userId) {
+        return store.findById(userId);
     }
 }
 

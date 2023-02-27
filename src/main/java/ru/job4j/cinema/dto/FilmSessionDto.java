@@ -1,6 +1,7 @@
-package ru.job4j.cinema.model;
+package ru.job4j.cinema.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,12 +10,21 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Session {
+@Builder
+public class FilmSessionDto {
     private int id;
-    private int filmId;
-    private int hallId;
     private Timestamp start;
     private Timestamp end;
     private int price;
+    private int hallId;
+    /**
+    From Film Model
+     **/
+    private String film;
+    private int filmId;
 
+    /**
+     from Hall model
+     */
+    private String hall;
 }
