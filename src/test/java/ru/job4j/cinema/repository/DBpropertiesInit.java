@@ -1,11 +1,7 @@
 package ru.job4j.cinema.repository;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.junit.Ignore;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import ru.job4j.cinema.model.Ticket;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,16 +9,24 @@ import java.util.Properties;
 
 
 
-public class TicketStoreTest {
-    private static BasicDataSource pool;
+public class DBpropertiesInit {
 
-    @BeforeAll
-    public static void initSource() {
-        try (InputStream input = new FileInputStream("src/test/resources/db.properties"))  {
-            Properties cfg  = new Properties();
+    private BasicDataSource pool;
+
+    public DBpropertiesInit() {
+        initSource();
+    }
+     public BasicDataSource getPool() {
+        return pool;
+     }
+
+
+    private void initSource() {
+        try (InputStream input = new FileInputStream("src/test/resources/db.properties")) {
+           pool = new BasicDataSource();
+            Properties cfg = new Properties();
             cfg.load(input);
             Class.forName(cfg.getProperty("jdbc.driver"));
-            pool = new BasicDataSource();
             pool.setDriverClassName(cfg.getProperty("jdbc.driver"));
             pool.setUrl(cfg.getProperty("jdbc.url"));
             pool.setUsername(cfg.getProperty("jdbc.username"));
@@ -37,16 +41,4 @@ public class TicketStoreTest {
             throw new RuntimeException(e);
         }
     }
-
-
-    @Test
-    public void whenTicketAdded() {
-        TicketStore store = new TicketStore(pool);
-        Ticket ticket = new Ticket(0, 3, 3, 1, 1);
-        store.add(ticket);
-        Ticket stored = store.findById(ticket.getId());
-        Assertions.assertEquals(ticket.getRowId(), stored.getRowId());
-
-    }
-
 }
