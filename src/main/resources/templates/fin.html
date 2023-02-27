@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h1>Congratulation, you booked ticket: </h1>
+    <img th:width="300" th:high="300" th:src="@{|/filmPoster/${filmSession.filmId}|}">
+    <br>
+    <p>Film title</p>
+    <span th:text="${filmSession.film}"/>
+    <br>
+    <p>Start time</p>
+    <span th:text="${filmSession.start}"/>
+    <br>
+    <p>End time</p>
+    <span th:text="${filmSession.end}"/>
+    <br>
+    <p>Price</p>
+    <span th:text="${filmSession.price}"/>
+    <br>
+    <img th:width="300" th:high="300" th:src="@{|/hallPoster/${filmSession.hallId}|}">
+    <br>
+    <p>Your ticket</p>
+    <p>Row</p>
+    <span Row th:text="${ticket.row}"/>
+    <br>
+    <p>Place</p>
+    <span Place th:text="${ticket.place}"/>
+    <br>
+    <p>Your data</p>
+    <p>Name</p>
+    <span th:text="${user.name}"/>
+    <p>Email</p>
+    <span th:text="${user.email}"/>
+    <!--- --->
+    <p>Back to main page</p>
+    <form action="/index">
+        <input type="submit" value="Back"/>
+    </form>
+</div>
+</body>
+</html>

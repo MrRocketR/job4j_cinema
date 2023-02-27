@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -21,7 +20,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Cinema</a>
+    <a class="navbar-brand" >Cinema</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -29,35 +28,61 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link" th:href="@{/films}">Films</a>
-            <a class="nav-item nav-link" th:href="@{/addFilm}">Add Film</a>
             <a class="nav-item nav-link" th:href="@{/regUser}">Registration</a>
-            <a class="nav-item nav-link" th:if="${user.name == 'Quest'}" th:href="@{/loginPage}">
+            <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
                 <span th:text="${user.name}"></span>
                 <span> | Sign In</span>
             </a>
-            <a class="nav-item nav-link" th:if="${user.name != 'Quest'}" th:href="@{/logout}">
+            <a class="nav-item nav-link" th:if="${user.name != 'Guest'}" th:href="@{/logout}">
                 <span th:text="${user.name}"></span>
                 <span> | Sign out</span>
             </a>
         </div>
     </div>
 </nav>
-<div class="card-body">
-<form th:action="@{/updateFilm}" method="POST" th:object="${film}" enctype="multipart/form-data">
-    <input type="hidden" name="id" th:field="*{id}"/>
-    <div class="form-group">
-        <label for="name">Title</label>
-        <input type="text" class="form-control" name="name" id="name" th:field="*{name}">
-        <label for="name">Trivia</label>
-        <input type="text" class="form-control" name="description" th:field="*{description}">
-        <img th:width="150" th:high="150" th:src="@{|/filmPoster/${film.id}|}">
+
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Film</th>
+                <th scope="col">Hall</th>
+                <th scope="col">Start time</th>
+                <th scope="col">End Time</th>
+                <th scope="col">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${filmSession.id}"></td>
+                <td th:text="${filmSession.film}"></td>
+                <td th:text="${filmSession.hall}"></td>
+                <td th:text="${filmSession.start}"></td>
+                <td th:text="${filmSession.end}"></td>
+                <td th:text="${filmSession.price}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <form th:action="@{/buyTicket}" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="rowId">Pick Row</label>
+                <select class="form-control" id="rowId" name = "rowId" >
+                    <option th:each="rowId: ${rows}" th:value="${rowId}" th:text="${rowId}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="placeId">Pick Place</label>
+                <select class="form-control" id="placeId" name = "placeId" >
+                    <option th:each="placeId: ${places}" th:value="${placeId}" th:text="${placeId}"></option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Buy</button>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="name">Poster</label>
-        <input type="file" class="form-control" name="file" id="file">
-    </div>
-    <button type="submit" class="btn btn-primary">Сохранить</button>
-</form>
 </div>
 </body>
 </html>

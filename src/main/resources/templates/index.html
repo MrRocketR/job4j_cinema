@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<div class="container">
+    <img th:width="400" th:high="400" th:src="@{|/logoFile/|}">
+    <h1>job4j_cinema</h1>
+    <p>Welcome to simple cinema booking service</p>
+    <p>Please click the button below to buy a ticket</p>
+    <form action="/films">
+        <input type="submit" value="Enter" />
+    </form>
+</div>
+
+
+</body>
+</html>

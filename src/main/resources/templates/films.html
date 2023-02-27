@@ -21,14 +21,14 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Cinema</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand">Cinema</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link" th:href="@{/films}">Films</a>
-            <a class="nav-item nav-link" th:href="@{/addFilm}">Add Film</a>
             <a class="nav-item nav-link" th:href="@{/regUser}">Registration</a>
             <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
                 <span th:text="${user.name}"></span>
@@ -50,25 +50,26 @@
                 <th scope="col">#</th>
                 <th scope="col">Movie title</th>
                 <th scope="col">Movie Description</th>
+                <th scope="col">Year</th>
+                <th scope="col">MinimalAge</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Genre</th>
                 <th scope="col">Poster</th>
-                <th scope="col">#</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="film: ${films}">
-                <td th:text="${film.id}"></td>
                 <td>
-                    <a th:href="@{|/formUpdateFilm/${film.id}|}">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    <span th:text="${film.name}"></span>
+                    <a th:href="@{|/pickFilm/${film.id}|}">Buy Ticket</a>
                 </td>
-                <td th:text="${film.description}" />
+                <td th:text="${film.name}"></td>
+                <td th:text="${film.description}"></td>
+                <td th:text="${film.year}"></td>
+                <td th:text="${film.minimalAge}"></td>
+                <td th:text="${film.durationInMinutes} + min"></td>
+                <td th:text="${film.genre}"></td>
                 <td>
-                    <img th:width="150" th:high="150" th:src="@{|/filmPoster/${film.id}|}">
-                </td>
-                <td>
-                    <a th:href="@{|/selectRow/${film.id}|}">Buy Ticket</a>
+                    <img th:width="300" th:high="300" th:src="@{|/filmPoster/${film.id}|}">
                 </td>
             </tr>
             </tbody>

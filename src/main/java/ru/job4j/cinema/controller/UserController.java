@@ -33,7 +33,7 @@ public class UserController {
         if (regUser.isEmpty()) {
             return "redirect:/regUser?fail=true";
         }
-        return "redirect:/index";
+        return "redirect:/loginPage";
     }
 
     @GetMapping("/loginPage")
@@ -53,6 +53,12 @@ public class UserController {
         HttpSession session = request.getSession();
         session.setAttribute("user", userDb.get());
         return "redirect:/films";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/loginPage";
     }
 }
 

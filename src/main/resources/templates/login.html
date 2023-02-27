@@ -15,9 +15,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <title>Работа мечты!</title>
+    <title>Cinema</title>
 </head>
 <body>
+
+
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
@@ -25,6 +27,9 @@
                 Authorisation
             </div>
             <div class="card-body">
+                <div th:if="${fail}" class="alert alert-danger" role="alert">
+                    Login or password you entered is invalid!
+                </div>
                 <div th:if="${fail}" class="alert alert-danger" role="alert">
                     Login or password you entered is invalid!
                 </div>
@@ -38,7 +43,9 @@
                         <input type="text" class="form-control" name="password">
                     </div>
                     <button type="submit" class="btn btn-primary">Sign In</button>
-                    <a th:href="@{/regUser}" class="link-primary">New User</a>
+                </form>
+                <form th:action="@{/regUser}">
+                    <input type="submit" value="Registration" />
                 </form>
             </div>
         </div>
