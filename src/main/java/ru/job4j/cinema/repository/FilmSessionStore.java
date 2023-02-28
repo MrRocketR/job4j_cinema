@@ -21,10 +21,9 @@ public class FilmSessionStore  {
     private static final Logger LOG = LogManager.getLogger(FilmSessionStore.class.getName());
 
     private static final String FIND_BY_ID = "Select * from film_sessions where id = ?";
-    private static final String FIND_BY_NAME = "Select * from film_sessions where name = ?";
     private static final String FIND_ALL = "Select * from film_sessions";
 
-    private static final String FIND_FILMS_BY_ID = "Select * from film_sessions where film_id =?";
+    private static final String FIND_FILMS_BY_ID = "Select * from film_sessions where film_id = ?";
     private final BasicDataSource pool;
 
 
