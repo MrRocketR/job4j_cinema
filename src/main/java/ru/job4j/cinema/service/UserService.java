@@ -2,7 +2,7 @@ package ru.job4j.cinema.service;
 
 
 import lombok.Data;
-import net.jcip.annotations.ThreadSafe;
+
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.repository.UserStore;

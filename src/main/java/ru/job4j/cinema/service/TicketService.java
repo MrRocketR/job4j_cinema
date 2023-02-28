@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.repository.TicketStore;
 
-import java.util.Collection;
+
 import java.util.List;
 import java.util.Optional;
 

@@ -6,7 +6,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cinema.model.Film;
-import ru.job4j.cinema.model.Genre;
+
 
 import java.io.IOException;
 import java.sql.Connection;

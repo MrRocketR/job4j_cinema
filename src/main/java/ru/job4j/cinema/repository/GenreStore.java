@@ -5,7 +5,6 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
-import ru.job4j.cinema.model.File;
 import ru.job4j.cinema.model.Genre;
 
 import java.io.IOException;

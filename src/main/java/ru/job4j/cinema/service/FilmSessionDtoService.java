@@ -1,11 +1,11 @@
 package ru.job4j.cinema.service;
 
 import lombok.Data;
-import org.springframework.stereotype.Repository;
+
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.dto.FilmSessionDto;
 import ru.job4j.cinema.model.FilmSession;
-import ru.job4j.cinema.repository.FilmSessionStore;
+
 
 import java.util.ArrayList;
 import java.util.List;
