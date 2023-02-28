@@ -10,13 +10,12 @@ Technologies used in the project:
 - Thymeleaf,
 - Bootstrap,
 - PostgreSQL 42.2.9
-- Junit 4.13.2
+- Junit 5.7.0
 - AssertJ 3.23.1
 - log4j 1.2.17
 - JCIP Annotations 1.0
 - DBCP 2 2.7.0
 - h2database 1.4.200
-- Mockito 3.5.13
 - checkstyle-plugin 3.1.2
 - puppycrawl 9.0
 - Liquibase 3.6.2
@@ -40,21 +39,22 @@ To run the application you need:
 ```
 
 ### Login and user registration pages:
-![](img/forReadmi/login.png)
-![](img/forReadmi/reg.png)
+![](img/readmi/login.png)
+![](img/readmi/reg.png)
 
-### Main page with a list of movies, new additions and editing of existing ones:
-![](img/forReadmi/main.png)
-![](img/forReadmi/add.png)
-![](img/forReadmi/update.png)
+### Main page with a list of movies and sessions:
+![](img/readmi/main.png)
+![](img/readmi/hall.png)
 
-### Place, row, and purchase confirmation pages:
-![](img/forReadmi/seats.png)
-![](img/forReadmi/row.png)
-![](img/forReadmi/fin.png)
-![](img/forReadmi/end.png)
+### Purchase confirmation page, success and already booked page:
+![](img/readmi/ticket.png)
+![](img/readmi/fin.png)
+![](img/readmi/fail.png)
 
-Movie posters were taken from reddit
+
+
+Movie posters were generated with Different Dimension Me
+Logos generated with logo.com
 
 If you have any questions about this project, please email me at kuptsovns@gmail.com
 
