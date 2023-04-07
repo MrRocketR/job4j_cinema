@@ -2,8 +2,8 @@
 <h1>job4j_cinema</h1>
 
 Project "CINEMA" is a service for booking movie tickets. The project was created as a part of the learning activity. Spring Boot technology is used in the project.
-At the request of any page, the current filmSession is filtered through java.servlet.Filter and the user is redirected to the authorization page. 
-Only the authorized user can create/edit films and buy tickets. All entries are saved in the database.
+At the request of main page, the current filmSession is filtered through java.servlet.Filter and the user is redirected to the authorization page. 
+Only the authorized user buy tickets. All entries are saved in the database.
 
 Technologies used in the project:
 - Spring boot 2.5.2
