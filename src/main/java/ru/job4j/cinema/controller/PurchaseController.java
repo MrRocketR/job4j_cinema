@@ -37,9 +37,10 @@ public class PurchaseController {
 
     @GetMapping("/pickFilm/{film.id}")
     public String pickHall(Model model, @PathVariable("film.id") Integer filmId,  HttpSession httpSession) {
-        SessionChecker.checkSession(model, httpSession);
+        User user = (User) httpSession.getAttribute("user");
         List<FilmSessionDto> availableSessions = filmSessionDtoService.findByIdFilmID(filmId);
         model.addAttribute("filmSessions", availableSessions);
+        model.addAttribute("user", user);
         return "pickHall";
     }
 
@@ -59,9 +60,8 @@ public class PurchaseController {
     public String pickTicket(Model model,
                              @PathVariable("filmSession.id") Integer filmSessionId,
                              HttpSession httpSession) {
-        SessionChecker.checkSession(model, httpSession);
+        User user = (User) httpSession.getAttribute("user");
         FilmSessionDto filmSessionDto = filmSessionDtoService.findById(filmSessionId);
-        model.addAttribute("filmSession", filmSessionDto);
         Hall currentHall = hallService.findById(filmSessionDto.getHallId());
         List<Integer> rows = new ArrayList<>();
         for (int i = 1; i <= currentHall.getRows(); i++) {
@@ -71,6 +71,8 @@ public class PurchaseController {
         for (int j = 1; j <= currentHall.getPlaces(); j++) {
             places.add(j);
         }
+        model.addAttribute("user", user);
+        model.addAttribute("filmSession", filmSessionDto);
         model.addAttribute("rows", rows);
         model.addAttribute("places", places);
         httpSession.setAttribute("filmSessionId", filmSessionDto.getId());
@@ -99,13 +101,15 @@ public class PurchaseController {
     }
 
     @GetMapping("/fin")
-    public String fin(Model model, HttpSession session) {
-        SessionChecker.checkSession(model, session);
-        int ticketId = (int) session.getAttribute("ticketId");
+    public String fin(Model model, HttpSession  httpSession) {
+        int ticketId = (int) httpSession.getAttribute("ticketId");
         Ticket ticket = ticketService.findById(ticketId);
         FilmSessionDto filmSessionDto = filmSessionDtoService.findById(ticket.getSessionId());
-        User user = userService.findById(1).get();
-        model.addAttribute("user", user);
+        var user = userService.findById(ticket.getUserId());
+        if (user.isEmpty()) {
+            return "notFound";
+        }
+        model.addAttribute("user", user.get());
         model.addAttribute("ticket", ticket);
         model.addAttribute("filmSession", filmSessionDto);
         return "fin";

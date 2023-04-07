@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.cinema.dto.FilmDto;
+import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.service.FilmDtoService;
 import javax.servlet.http.HttpSession;
 
@@ -24,7 +25,8 @@ public class FilmController {
 
     @GetMapping("/films")
     public String films(Model model, HttpSession httpSession) {
-        SessionChecker.checkSession(model, httpSession);
+        User user = (User) httpSession.getAttribute("user");
+        model.addAttribute("user", user);
         model.addAttribute("films", filmService.findAll());
         return "films";
     }

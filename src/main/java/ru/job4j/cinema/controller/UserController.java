@@ -1,6 +1,7 @@
 package ru.job4j.cinema.controller;
 
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,11 +37,12 @@ public class UserController {
         return "redirect:/loginPage";
     }
 
-    @GetMapping("/loginPage")
+   @GetMapping("/loginPage")
     public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
         model.addAttribute("fail", fail != null);
         return "login";
     }
+
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpServletRequest request) {
@@ -49,17 +51,22 @@ public class UserController {
         );
         if (userDb.isEmpty()) {
             return "redirect:/loginPage?fail=true";
+
         }
+        System.out.println("new login is = " + userDb.get());
         HttpSession session = request.getSession();
         session.setAttribute("user", userDb.get());
         return "redirect:/films";
     }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/loginPage";
     }
+
+
 }
 
 

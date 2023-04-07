@@ -1,14 +1,18 @@
 package ru.job4j.cinema.filter;
 
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import org.springframework.ui.Model;
+import ru.job4j.cinema.model.User;
 
 @Component
 public class AuthFilter implements Filter {
